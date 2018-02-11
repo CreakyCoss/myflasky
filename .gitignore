@@ -1,2 +1,8 @@
-#IDE
+# IDE
 .idea
+
+# Rope project settings
+info.py
+
+#Virtualenv
+venv
