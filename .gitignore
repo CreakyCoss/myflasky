@@ -4,5 +4,8 @@
 # Rope project settings
 info.py
 
-# Virtualenv
+# Virtual environment
 venv
+
+# Packages
+__pycache__
