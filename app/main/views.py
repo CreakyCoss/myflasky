@@ -2,7 +2,8 @@ from flask import render_template, session, redirect, url_for, current_app
 from . import main
 from .forms import NameForm
 from .. import db
-from ..models import User
+from ..models import User, Permission
+from ..decorators import admin_required, permission_required
 from ..email import send_email
 from flask_login import login_required
 
@@ -33,3 +34,17 @@ def index():
 @login_required
 def secret():
     return 'Only authenticated users are allowed'
+
+
+@main.route('/admin')
+@login_required
+@admin_required
+def for_admins_only():
+    return "For administrators!"
+
+
+@main.route('/moderator')
+@login_required
+@permission_required(Permission.MODERATE_COMMENTS)
+def for_moderators_only():
+    return "For comment moderators"
