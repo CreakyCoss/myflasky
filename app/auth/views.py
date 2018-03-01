@@ -78,16 +78,6 @@ def resend_confirmation():
     return redirect(url_for('main.index'))
 
 
-@auth.before_app_request
-def before_request():
-    if current_user.is_authenticated \
-            and not current_user.confirmed \
-            and request.endpoint \
-            and request.blueprint != 'auth' \
-            and request.endpoint != 'static':
-        return redirect(url_for('auth.unconfirmed'))
-
-
 @auth.route('/unconfirmed')
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
@@ -128,8 +118,6 @@ def password_reset_request():
               'sent to you.')
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', form=form)
-
-    return render_template('reset_password', form=form)
 
 
 @auth.route('/reset/<token>', methods=['GET', 'POST'])
